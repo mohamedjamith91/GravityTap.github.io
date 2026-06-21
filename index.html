@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gravity Shift Runner</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <h1 class="neon-text">GRAVITY<br>SHIFT</h1>
+            <div class="character-select">
+                <p>SELECT ENTITY</p>
+                <div class="char-options">
+                    <button id="char-male" class="char-btn active" data-char="male">🟦 MALE</button>
+                    <button id="char-female" class="char-btn" data-char="female">🟪 FEMALE</button>
+                </div>
+            </div>
+            <p class="high-score-display">HIGH SCORE: <span id="home-high-score">0</span></p>
+            <button id="play-btn" class="neon-button">PLAY NOW</button>
+            <p class="instructions">Spacebar / Tap to flip gravity</p>
+        </div>
+
+        <!-- Game Screen UI Overlay -->
+        <div id="game-ui" class="screen">
+            <div class="top-bar">
+                <div class="score-container">SCORE: <span id="score">0</span></div>
+            </div>
+            <div class="energy-bar-container">
+                <div id="energy-fill"></div>
+            </div>
+            <canvas id="game-canvas"></canvas>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <h2 class="neon-text error">SYSTEM FAILURE</h2>
+            <div class="stats">
+                <p>SCORE: <span id="final-score">0</span></p>
+                <p>BEST: <span id="go-high-score">0</span></p>
+            </div>
+            <button id="retry-btn" class="neon-button">REBOOT</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

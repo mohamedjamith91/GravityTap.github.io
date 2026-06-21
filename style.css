@@ -1,0 +1,224 @@
+:root {
+    --bg-color: #0b0c10;
+    --neon-cyan: #66fcf1;
+    --neon-cyan-dark: #45a29e;
+    --neon-pink: #f000ff;
+    --text-color: #c5c6c7;
+    --error-color: #ff003c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    font-family: 'Orbitron', sans-serif;
+    color: var(--text-color);
+    overflow: hidden; /* Prevent scrolling */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    max-height: 600px;
+    background: radial-gradient(circle at center, #1f2833 0%, var(--bg-color) 100%);
+    box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+    overflow: hidden;
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Typography */
+.neon-text {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--neon-cyan),
+        0 0 40px var(--neon-cyan),
+        0 0 80px var(--neon-cyan);
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+.neon-text.error {
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--error-color),
+        0 0 40px var(--error-color),
+        0 0 80px var(--error-color);
+}
+
+/* Buttons */
+.neon-button {
+    background: transparent;
+    color: var(--neon-cyan);
+    border: 2px solid var(--neon-cyan);
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 
+        0 0 10px var(--neon-cyan),
+        inset 0 0 10px var(--neon-cyan);
+    transition: all 0.3s ease;
+    margin: 20px 0;
+}
+
+.neon-button:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-color);
+    box-shadow: 
+        0 0 20px var(--neon-cyan),
+        inset 0 0 20px var(--neon-cyan);
+}
+
+/* Character Selection */
+.character-select {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.character-select p {
+    font-size: 1.2rem;
+    color: var(--neon-pink);
+    text-shadow: 0 0 5px var(--neon-pink);
+    margin-bottom: 10px;
+}
+
+.char-options {
+    display: flex;
+    gap: 20px;
+}
+
+.char-btn {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.char-btn.active {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+    color: var(--neon-pink);
+}
+
+/* Text elements */
+.high-score-display, .stats p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+
+.instructions {
+    font-size: 1rem;
+    color: var(--neon-cyan-dark);
+    margin-top: auto;
+    margin-bottom: 30px;
+    opacity: 0.7;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* Game UI Overlays */
+#game-ui {
+    pointer-events: none; /* Let clicks pass through to canvas */
+    justify-content: flex-start;
+}
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px var(--neon-cyan);
+    z-index: 20;
+}
+
+.shield-container {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.energy-bar-container {
+    width: 80%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--neon-cyan-dark);
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+    z-index: 20;
+}
+
+#energy-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 10px var(--neon-cyan);
+    transition: width 0.1s linear;
+}
+
+#game-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Below the UI overlays */
+    pointer-events: auto; /* Catch clicks for the canvas */
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+    .neon-text { font-size: 3rem; }
+    .neon-button { padding: 12px 30px; font-size: 1.2rem; }
+    .top-bar { font-size: 1.2rem; padding: 10px; }
+}
